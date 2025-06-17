@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
+from database import Base, engine
 
 # Connect to SQLite DB
 engine = create_engine("sqlite:///acc_library_il.db")
