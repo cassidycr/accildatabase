@@ -12,20 +12,20 @@ min_date = date.today()  # Minimum date is today
 
 # Map campuses to email addresses
 campus_email_map = {
-    "Highland": "highland_lib@yourcollege.edu",
-    "Hays": "hays_lib@yourcollege.edu",
-    "Elgin": "elgin_lib@yourcollege.edu",
-    "Cypress Creek": "cypress_lib@yourcollege.edu",
-    "Eastview": "eastview_lib@yourcollege.edu",
-    "Round Rock": "roundrock_lib@yourcollege.edu",
+    "Highland": "cassidy.reid@austincc.edu",
+    "Hays": "cassidy.reid@austincc.edu",
+    "Elgin": "cassidy.reid@austincc.edu",
+    "Cypress Creek": "cassidy.reid@austincc.edu",
+    "Eastview": "cassidy.reid@austincc.edu",
+    "Round Rock": "cassidy.reid@austincc.edu",
     # Add all needed campuses here
 }
 
-SMTP_SERVER = "smtp.yourcollege.edu"
+SMTP_SERVER = "smtp.austincc.edu"
 SMTP_PORT = 587
-SMTP_USERNAME = "your_smtp_username"
-SMTP_PASSWORD = "your_smtp_password"
-FROM_EMAIL = "noreply@yourcollege.edu"
+SMTP_USERNAME = None
+SMTP_PASSWORD = None
+FROM_EMAIL = "noreply@austincc.edu"
 
 # --- STREAMLIT FORM ---
 
