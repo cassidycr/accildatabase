@@ -1,6 +1,6 @@
 from datetime import date
 import streamlit as st
-from database import InstructionSession, InstructionSessionSLO, Session
+from 2_database import InstructionSession, InstructionSessionSLO, Session
 from campuses import campus_list
 from librarians import librarian_list
 import smtplib
