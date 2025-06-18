@@ -1,0 +1,11 @@
+[[pages]]
+path = "pages/1_Dashboard.py"
+name = "📊 Dashboard"
+
+[[pages]]
+path = "pages/2_ILForm.py"
+name = "📝 Instruction Form"
+
+[[pages]]
+path = "pages/3_Sessions.py"
+name = "📅 Sessions Log"
