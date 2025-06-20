@@ -22,6 +22,8 @@ campus_email_map = {
 }
 
 SENDGRID_API_KEY = "YOSG.v57hU9zESkylAUeol1M3Ww.yyQ6MXjEshryQRFx9DLHZh7Ce4xQsg1mbC6PYDR8pd0"
+FROM_EMAIL = "cassidy.reid@austincc.edu"  # or your verified SendGrid sender
+
 
 # --- STREAMLIT FORM ---
 
