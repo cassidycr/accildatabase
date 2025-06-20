@@ -21,11 +21,11 @@ campus_email_map = {
     # Add all needed campuses here
 }
 
-SMTP_SERVER = "smtp.austincc.edu"
-SMTP_PORT = 25
-SMTP_USERNAME = None
-SMTP_PASSWORD = None
-FROM_EMAIL = "noreply@austincc.edu"
+SMTP_SERVER = "smtp.sendgrid.net"
+SMTP_PORT = 587
+SMTP_USERNAME = "apikey"
+SMTP_PASSWORD = "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"
+FROM_EMAIL = "cassidy.reid@austincc.edu"
 
 # --- STREAMLIT FORM ---
 
