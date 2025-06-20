@@ -5,7 +5,7 @@ from librarians import librarian_list
 from campuses import campus_list
 from collections import Counter
 
-st.title("Library Instruction Dashboard")
+st.title("Library Instruction Totals")
 
 # Load all sessions from the database
 all_sessions = load_sessions()
