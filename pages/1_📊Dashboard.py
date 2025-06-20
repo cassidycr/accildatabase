@@ -54,14 +54,9 @@ else:
     campus_counts.columns = ['Campus', 'Total Confirmed Sessions']
     st.dataframe(campus_counts)
 
-    # Total Confirmed Sessions by Librarian
-    st.subheader("Total Confirmed Sessions by Librarian")
-    librarian_counts = confirmed_df['Librarian'].value_counts().reset_index()
-    librarian_counts.columns = ['Librarian', 'Total Confirmed Sessions']
-    st.dataframe(librarian_counts)
 
     # Librarian Instruction Session Breakdown by Type
-    st.subheader("Librarian Instruction Session Breakdown by Type")
+    st.subheader("IL Sessions by Libarian")
     type_counts = confirmed_df.groupby(['Librarian', 'Type']).size().unstack(fill_value=0)
 
     for expected_type in ['In-Person', 'Asynchronous', 'Synchronous']:
