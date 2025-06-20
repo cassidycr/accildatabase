@@ -8,7 +8,6 @@ st.set_page_config(
 )
 
 # Sidebar content
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Logo_of_Austin_Community_College.svg/2560px-Logo_of_Austin_Community_College.svg.png", use_column_width=True)  # Optional: ACC logo
 st.sidebar.title("📚 ACC Library Instruction")
 st.sidebar.markdown("---")  # horizontal divider
 st.sidebar.markdown("### Navigation appears below ⬇️")
