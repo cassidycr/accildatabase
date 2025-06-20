@@ -103,10 +103,10 @@ if submit:
         session.commit()
         session.close()
 
-# --- EMAIL LOGIC USING SENDGRID WEB API ---
-recipient_email = campus_email_map.get(campus, "cassidy.reid@austincc.edu")
-subject = f"New Library Instruction Request - {campus}"
-body = f"""New Instruction Session Requested:
+        # --- EMAIL LOGIC USING SENDGRID WEB API ---
+        recipient_email = campus_email_map.get(campus, "cassidy.reid@austincc.edu")
+        subject = f"New Library Instruction Request - {campus}"
+        body = f"""New Instruction Session Requested:
 
 Name: {first} {last}
 Email: {email}
@@ -119,19 +119,20 @@ Requested Librarian: {librarian_presenter}
 
 Please review this request in the system."""
 
-message = Mail(
-    from_email=FROM_EMAIL,
-    to_emails=recipient_email,
-    subject=subject,
-    plain_text_content=body
-)
+        message = Mail(
+            from_email=FROM_EMAIL,
+            to_emails=recipient_email,
+            subject=subject,
+            plain_text_content=body
+        )
 
-try:
-    sg = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
-    response = sg.send(message)
-    if response.status_code >= 200 and response.status_code < 300:
-        st.success("New session added and notification email sent successfully!")
-    else:
-        st.error(f"Session saved but email failed to send. Status Code: {response.status_code}")
-except Exception as e:
-    st.error(f"Session saved but email failed to send: {e}")
+        try:
+            sg = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
+            response = sg.send(message)
+            if response.status_code >= 200 and response.status_code < 300:
+                st.success("New session added and notification email sent successfully!")
+            else:
+                st.error(f"Session saved but email failed to send. Status Code: {response.status_code}")
+        except Exception as e:
+            st.error(f"Session saved but email failed to send: {e}")
+
