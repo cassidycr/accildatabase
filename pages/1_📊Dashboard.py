@@ -3,6 +3,7 @@ import pandas as pd
 from session_utils import load_sessions, parse_date
 from librarians import librarian_list
 from campuses import campus_list
+from collections import Counter
 
 st.title("Library Instruction Dashboard")
 
@@ -24,7 +25,7 @@ else:
         'Course Code': s.course_code,
         'Course_Number': s.course_number,
         'Type': s.type,
-        'SLOs': [slo.slo for slo in s.slos],
+        'SLOs': [slo.slo for slo in s.slos],  # This is a list
         'Number of Students': s.number_of_students,
         'Campus_Room': s.campus_room,
         'Assessment': s.assessment,
@@ -34,7 +35,13 @@ else:
 
     data['Day of Week'] = data['Date Confirmed'].apply(lambda x: x.strftime('%A') if pd.notna(x) else None)
 
-    # Only include confirmed (not canceled, with Date Confirmed)
+    # --- Unconfirmed Sessions Count ---
+    unconfirmed_sessions = data[(data['Date Confirmed'].isna()) & (~data['Canceled'])]
+    unconfirmed_count = len(unconfirmed_sessions)
+
+    st.markdown(f"<h3 style='color: red;'>Unconfirmed Sessions = {unconfirmed_count}</h3>", unsafe_allow_html=True)
+
+    # --- Confirmed Sessions ---
     confirmed_df = data[(data['Date Confirmed'].notna()) & (~data['Canceled'])]
 
     # Dashboard displays below:
@@ -81,3 +88,13 @@ else:
     month_counts = pd.concat([month_counts, ytd_row], ignore_index=True)
 
     st.dataframe(month_counts)
+
+    # --- SLO Counts ---
+    st.subheader("SLO Counts")
+
+    # Flatten SLO lists into one big list
+    slo_list = [slo for sublist in confirmed_df['SLOs'] for slo in sublist]
+    slo_counts = Counter(slo_list)
+
+    slo_df = pd.DataFrame(slo_counts.items(), columns=['SLO', 'Count']).sort_values(by='Count', ascending=False)
+    st.dataframe(slo_df)
