@@ -3,8 +3,8 @@ import streamlit as st
 from database import InstructionSession, InstructionSessionSLO, Session
 from campuses import campus_list
 from librarians import librarian_list
-import smtplib
-from email.mime.text import MIMEText
+import sendgrid
+from sendgrid.helpers.mail import Mail
 
 # --- CONFIG ---
 
@@ -21,11 +21,7 @@ campus_email_map = {
     # Add all needed campuses here
 }
 
-SMTP_SERVER = "smtp.sendgrid.net"
-SMTP_PORT = 587
-SMTP_USERNAME = "apikey"
-SMTP_PASSWORD = "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"
-FROM_EMAIL = "cassidy.reid@austincc.edu"
+SENDGRID_API_KEY = "YOSG.v57hU9zESkylAUeol1M3Ww.yyQ6MXjEshryQRFx9DLHZh7Ce4xQsg1mbC6PYDR8pd0"
 
 # --- STREAMLIT FORM ---
 
@@ -105,10 +101,10 @@ if submit:
         session.commit()
         session.close()
 
-        # --- EMAIL LOGIC ---
-        recipient_email = campus_email_map.get(campus, "default_lib@yourcollege.edu")
-        subject = f"New Library Instruction Request - {campus}"
-        body = f"""New Instruction Session Requested:
+# --- EMAIL LOGIC USING SENDGRID WEB API ---
+recipient_email = campus_email_map.get(campus, "cassidy.reid@austincc.edu")
+subject = f"New Library Instruction Request - {campus}"
+body = f"""New Instruction Session Requested:
 
 Name: {first} {last}
 Email: {email}
@@ -121,16 +117,19 @@ Requested Librarian: {librarian_presenter}
 
 Please review this request in the system."""
 
-        msg = MIMEText(body)
-        msg['Subject'] = subject
-        msg['From'] = FROM_EMAIL
-        msg['To'] = recipient_email
+message = Mail(
+    from_email=FROM_EMAIL,
+    to_emails=recipient_email,
+    subject=subject,
+    plain_text_content=body
+)
 
-        try:
-            with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-                server.starttls()
-                server.login(SMTP_USERNAME, SMTP_PASSWORD)
-                server.send_message(msg)
-            st.success("New session added and notification email sent successfully!")
-        except Exception as e:
-            st.error(f"Session saved but email failed to send: {e}")
+try:
+    sg = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
+    response = sg.send(message)
+    if response.status_code >= 200 and response.status_code < 300:
+        st.success("New session added and notification email sent successfully!")
+    else:
+        st.error(f"Session saved but email failed to send. Status Code: {response.status_code}")
+except Exception as e:
+    st.error(f"Session saved but email failed to send: {e}")
