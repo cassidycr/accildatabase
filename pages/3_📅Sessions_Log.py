@@ -5,6 +5,8 @@ from database import Session, InstructionSession, InstructionSessionSLO
 from librarians import librarian_list
 from campuses import campus_list
 from sqlalchemy.orm import joinedload
+from session_utils import load_sessions, parse_date
+
 
 def parse_date(value):
     if value is None or (isinstance(value, float) and pd.isna(value)):
