@@ -21,7 +21,7 @@ campus_email_map = {
     # Add all needed campuses here
 }
 
-SENDGRID_API_KEY = "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"
+SENDGRID_API_KEY = "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"
 FROM_EMAIL = "cassidy.reid@austincc.edu"  # or your verified SendGrid sender
 
 
